@@ -24,7 +24,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    url='https://github.com/posativ/isso/',
+    url='https://github.com/fseasy/isso/',
     license='MIT',
     description='lightweight Disqus alternative',
     long_description=long_description,

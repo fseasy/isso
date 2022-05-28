@@ -69,9 +69,9 @@ from isso.views import comments
 
 from isso.ext.notifications import Stdout, SMTP
 
-logging.getLogger('werkzeug').setLevel(logging.WARN)
+logging.getLogger('werkzeug').setLevel(logging.DEBUG)
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s %(levelname)s: %(message)s")
 
 logger = logging.getLogger("isso")

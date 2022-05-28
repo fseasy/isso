@@ -129,15 +129,20 @@ var Postbox = function(parent) {
             parent: parent || null,
             title: $("#isso-thread").getAttribute("data-title") || null,
             notification: $("[name=notification]", el).checked() ? 1 : 0,
-        }).then(function(comment) {
-            $(".isso-textarea", el).innerHTML = "";
-            $(".isso-textarea", el).blur();
-            insert(comment, true);
+        }).then(
+            function(comment) {
+                $(".isso-textarea", el).innerHTML = "";
+                $(".isso-textarea", el).blur();
+                insert(comment, true);
 
-            if (parent !== null) {
-                el.onsuccess();
+                if (parent !== null) {
+                    el.onsuccess();
+                }
+            },
+            function(response) {
+                alert(response);
             }
-        });
+        );
     });
 
     editorify($(".isso-textarea", el));
