@@ -69,10 +69,6 @@ from isso.views import comments
 
 from isso.ext.notifications import Stdout, SMTP
 
-logging.getLogger('werkzeug').setLevel(logging.DEBUG)
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s %(levelname)s: %(message)s")
 
 logger = logging.getLogger("isso")
 
@@ -234,6 +230,9 @@ def main():
                         version='%(prog)s ' + dist.version)
     parser.add_argument("-c", dest="conf", default="/etc/isso.cfg",
                         metavar="/etc/isso.cfg", help="set configuration file")
+    parser.add_argument("--log_level", 
+                        choices=["DEBUG", "INFO", "WARNING", "CRITICAL"], default="INFO",
+                        help="log level")
 
     imprt = subparser.add_parser('import', help="import Disqus XML export")
     imprt.add_argument("dump", metavar="FILE")
@@ -248,6 +247,11 @@ def main():
     subparser.add_parser("run", help="run server")
 
     args = parser.parse_args()
+
+    logging.basicConfig(
+        level=args.log_level,
+        format="%(asctime)s %(levelname)s: %(message)s")
+    logging.getLogger('werkzeug').setLevel(args.log_level)
 
     # ISSO_SETTINGS env var takes precedence over `-c` flag
     conf_file = os.environ.get('ISSO_SETTINGS') or args.conf

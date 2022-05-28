@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 import collections
 import re
 import time
@@ -27,23 +26,6 @@ from isso.utils import (http, parse,
                         render_template)
 from isso.utils.hash import md5, sha1
 from isso.views import requires
-
-
-# from Django apparently, looks good to me *duck*
-__url_re = re.compile(
-    r'^'
-    r'(https?://)?'
-    # domain...
-    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
-    r'localhost|'  # localhost...
-    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
-    r'(?::\d+)?'  # optional port
-    r'(?:/?|[/?]\S+)'
-    r'$', re.IGNORECASE)
-
-
-def isurl(text):
-    return __url_re.match(text) is not None
 
 
 def normalize(url):
@@ -85,7 +67,8 @@ def xhr(func):
 class API(object):
 
     FIELDS = set(['id', 'parent', 'text', 'author', 'website',
-                  'mode', 'created', 'modified', 'likes', 'dislikes', 'hash', 'gravatar_image', 'notification'])
+                  'mode', 'created', 'modified', 'likes', 'dislikes', 'hash', 
+                  'gravatar_image', 'notification'])
 
     # comment fields, that can be submitted
     ACCEPT = set(['text', 'author', 'website', 'email', 'parent', 'title', 'notification'])
@@ -153,7 +136,7 @@ class API(object):
     def verify(cls, comment):
 
         if "text" not in comment:
-            return False, "text is missing"
+            return False, "无评论"
 
         if not isinstance(comment.get("parent"), (int, type(None))):
             return False, "parent must be an integer or null"
@@ -162,20 +145,18 @@ class API(object):
             if not isinstance(comment.get(key), (str, type(None))):
                 return False, "%s must be a string or null" % key
 
-        if len(comment["text"].rstrip()) < 3:
-            return False, "text is too short (minimum length: 3)"
+        if len(comment["text"].rstrip()) < 1:
+            return False, "评论太短"
 
         if len(comment["text"]) > 65535:
-            return False, "text is too long (maximum length: 65535)"
+            return False, "评论太长(maximum length: 65535)"
 
         if len(comment.get("email") or "") > 254:
-            return False, "http://tools.ietf.org/html/rfc5321#section-4.5.3"
+            return False, "邮箱长度不合法，规范见 http://tools.ietf.org/html/rfc5321#section-4.5.3"
 
         if comment.get("website"):
             if len(comment["website"]) > 254:
-                return False, "arbitrary length limit"
-            if not isurl(comment["website"]):
-                return False, "Website seems not valid"
+                return False, "网址太长了"
 
         return True, ""
 
@@ -276,7 +257,7 @@ class API(object):
 
         valid, reason = API.verify(data)
         if not valid:
-            return BadRequest(reason)
+            return JSON({"error": f"输入验证错误： {reason}"}, 400)
 
         for field in ("author", "email", "website"):
             if data.get(field) is not None:
@@ -295,7 +276,7 @@ class API(object):
                         if resp and resp.status == 200:
                             uri, title = parse.thread(resp.read(), id=uri)
                         else:
-                            return NotFound('URI does not exist %s')
+                            return JSON({"error": f"URI not exist: [{uri}]"}, 404)
                 else:
                     title = data['title']
 

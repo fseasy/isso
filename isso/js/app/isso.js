@@ -46,25 +46,25 @@ var Postbox = function(parent) {
     el.onsuccess = function() {};
 
     el.validate = function() {
-        if (utils.text($(".isso-textarea", this).innerHTML).length < 3 ||
+        if (utils.text($(".isso-textarea", this).innerHTML).length < 1 ||
             $(".isso-textarea", this).classList.contains("isso-placeholder"))
         {
             $(".isso-textarea", this).focus();
-            return false;
+            return [false, "评论为空"];
         }
         if (config["require-email"] &&
             $("[name='email']", this).value.length <= 0)
         {
           $("[name='email']", this).focus();
-          return false;
+          return [false, "邮箱为空"];
         }
         if (config["require-author"] &&
             $("[name='author']", this).value.length <= 0)
         {
           $("[name='author']", this).focus();
-          return false;
+          return [false, "姓名为空"];
         }
-        return true;
+        return [true, ""];
     };
 
     // only display notification checkbox if email is filled in
@@ -110,8 +110,14 @@ var Postbox = function(parent) {
     // submit form, initialize optional fields with `null` and reset form.
     // If replied to a comment, remove form completely.
     $("[type=submit]", el).on("click", function() {
+        var errDom = $(".isso-comment-submit-err", el);
+        errDom.setHtml("").hide();
         edit();
-        if (! el.validate()) {
+        var valResult = el.validate();
+        var valOk = valResult[0],
+            errorReason = valResult[1];
+        if (!valOk) {
+            errDom.setHtml(errorReason).show();
             return;
         }
 
@@ -140,7 +146,15 @@ var Postbox = function(parent) {
                 }
             },
             function(response) {
-                alert(response);
+                try {
+                    response = JSON.parse(response);
+                } catch {
+                    console.debug("response not json object: %s", response);
+                }
+                if (response.hasOwnProperty("error")) {
+                    response = response["error"];
+                }
+                errDom.setHtml(response).show();
             }
         );
     });
@@ -187,7 +201,7 @@ var insert_loader = function(comment, lastcreated) {
                 }
             },
             function(err) {
-                console.log(err);
+                alert(err);
             });
     });
 };

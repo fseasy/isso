@@ -1,5 +1,5 @@
 module.exports= {
-    "postbox-text": "Insérez votre commentaire ici (au moins 3 lettres)",
+    "postbox-text": "Insérez votre commentaire ici",
     "postbox-author": "Nom (optionnel)",
     "postbox-email": "Courriel (optionnel)",
     "postbox-website": "Site web (optionnel)",

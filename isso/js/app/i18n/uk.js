@@ -1,5 +1,5 @@
 module.exports = {
-  "postbox-text": "Введіть коментар тут (принаймні 3 символи)",
+  "postbox-text": "Введіть коментар тут ",
   "postbox-author": "Ім'я (необов'язково)",
   "postbox-author-placeholder": "John Doe",
   "postbox-email": "Пошта (необов'язково)",

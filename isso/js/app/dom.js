@@ -70,23 +70,27 @@ function Element(node) {
 
     this.show = function() {
         node.style.display = "block";
+        return this;
     };
 
     this.hide = function() {
         node.style.display = "none";
+        return this;
     };
 
     this.setText = function(text) {
         node.textContent = text;
+        return this;
     };
 
     this.setHtml = function(html) {
         node.innerHTML = html;
+        return this;
     };
 
-    this.blur = function() { node.blur() };
-    this.focus = function() { node.focus() };
-    this.scrollIntoView = function(args) { node.scrollIntoView(args) };
+    this.blur = function() { node.blur(); return this; };
+    this.focus = function() { node.focus(); return this; };
+    this.scrollIntoView = function(args) { node.scrollIntoView(args); return this; };
 
     this.checked = function() { return node.checked; };
 
@@ -174,7 +178,6 @@ DOM.htmlify = function(el) {
     /*
     Convert :param html: into an Element (if not already).
     */
-
     if (el instanceof Element) {
         return el;
     }

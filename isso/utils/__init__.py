@@ -120,7 +120,7 @@ class JSONResponse(Response):
     def __init__(self, obj, *args, **kwargs):
         kwargs["content_type"] = "application/json"
         super(JSONResponse, self).__init__(
-            json.dumps(obj).encode("utf-8"), *args, **kwargs)
+            json.dumps(obj, ensure_ascii=False).encode("utf-8"), *args, **kwargs)
 
 
 class XMLResponse(Response):

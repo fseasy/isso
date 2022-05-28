@@ -1,5 +1,5 @@
 module.exports= {
-    "postbox-text": "Tajpu komenton ĉi-tie (almenaŭ 3 signoj)",
+    "postbox-text": "Tajpu komenton ĉi-tie",
     "postbox-author": "Nomo (malnepra)",
     "postbox-email": "Retadreso (malnepra)",
     "postbox-website": "Retejo (malnepra)",
