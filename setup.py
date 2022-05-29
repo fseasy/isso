@@ -19,9 +19,9 @@ long_description = re_sub(r"\n## License\n.*LICENSE.*\n", "", long_description)
 
 setup(
     name='isso',
-    version='0.13.0-dev',
+    version='0.13.1-dev',
     author='Martin Zimmermann,fseasy',
-    author_email='fseasy@fseasy.top',
+    author_email='fseasygo@126.com',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
