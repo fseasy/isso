@@ -1,5 +1,5 @@
 module.exports= {
-    "postbox-text": "在此输入评论",
+    "postbox-text": "可在此输入评论(Markdown 风格)",
     "postbox-author": "名字 (可选)",
     "postbox-email": "电子邮箱 (可选)",
     "postbox-website": "网站 (可选)",

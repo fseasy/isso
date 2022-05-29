@@ -69,7 +69,16 @@ var Postbox = function(parent) {
 
     // only display notification checkbox if email is filled in
     var email_edit = function() {
-        if (config["reply-notifications"] && $("[name='email']", el).value.length > 0) {
+        // copy from https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+        var validateEmail = function(email) {
+            return String(email)
+              .toLowerCase()
+              .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+              );
+        };
+
+        if (config["reply-notifications"] && validateEmail($("[name='email']", el).value)) {
             $(".isso-notification-section", el).show();
         } else {
             $(".isso-notification-section", el).hide();
@@ -96,6 +105,9 @@ var Postbox = function(parent) {
             function(html) {
                 $(".isso-preview .isso-text", el).innerHTML = html;
                 el.classList.add('isso-preview-mode');
+            },
+            function(html) {
+                alert(html);
             });
     });
 

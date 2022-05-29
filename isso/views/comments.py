@@ -291,7 +291,7 @@ class API(object):
         valid, reason = self.guard.validate(uri, data)
         if not valid:
             self.signal("comments.new:guard", reason)
-            raise Forbidden(reason)
+            return JSON({"error": f"触发保护机制： {reason}"}, 403)
 
         with self.isso.lock:
             # if email-based auto-moderation enabled, check for previously approved author

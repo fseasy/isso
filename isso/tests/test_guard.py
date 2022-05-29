@@ -90,7 +90,7 @@ class TestGuard(unittest.TestCase):
             rv = client.post("/new?uri=%s" % url, data=self.data)
 
             self.assertEqual(rv.status_code, 403)
-            self.assertIn("direct responses to", rv.get_data(as_text=True))
+            self.assertIn("direct comments to", rv.get_data(as_text=True))
 
     def testSelfReply(self):
 

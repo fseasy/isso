@@ -51,7 +51,7 @@ class Guard:
             ], (uri, comment["remote_addr"])).fetchall()
 
             if len(rv) >= self.conf.getint("direct-reply"):
-                return False, "%i direct responses to %s" % (len(rv), uri)
+                return False, "You create >= %i direct comments to %s" % (len(rv), uri)
 
         # block replies to self unless :param:`reply-to-self` is enabled
         elif self.conf.getboolean("reply-to-self") is False:

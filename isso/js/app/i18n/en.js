@@ -1,5 +1,5 @@
 module.exports = {
-    "postbox-text": "Type Comment Here",
+    "postbox-text": "Type Comment Here(Markdown format)",
     "postbox-author": "Name (optional)",
     "postbox-author-placeholder": "John Doe",
     "postbox-email": "E-mail (optional)",
