@@ -6,7 +6,8 @@ from re import sub as re_sub
 from setuptools import setup, find_packages
 
 requires = ['itsdangerous', 'Jinja2', 'misaka>=2.0,<3.0', 'html5lib',
-            'werkzeug>=1.0', 'bleach', 'Flask-Caching>=1.9', 'Flask']
+            'werkzeug>=1.0', 'bleach', 'Flask-Caching>=1.9', 'Flask',
+            'gevent']
 tests_require = ['pytest', 'pytest-cov']
 
 # https://packaging.python.org/en/latest/guides/making-a-pypi-friendly-readme/
@@ -19,8 +20,8 @@ long_description = re_sub(r"\n## License\n.*LICENSE.*\n", "", long_description)
 setup(
     name='isso',
     version='0.13.0-dev',
-    author='Martin Zimmermann',
-    author_email='info@posativ.org',
+    author='Martin Zimmermann,fseasy',
+    author_email='fseasy@fseasy.top',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
