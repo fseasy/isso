@@ -68,8 +68,11 @@ function Element(node) {
         node.parentNode.removeChild(this.obj);
     };
 
-    this.show = function() {
-        node.style.display = "block";
+    this.show = function(display_style) {
+        if (!display_style) {
+            display_style = "block";
+        }
+        node.style.display = display_style;
         return this;
     };
 

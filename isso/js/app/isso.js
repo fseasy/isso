@@ -79,7 +79,7 @@ var Postbox = function(parent) {
         };
 
         if (config["reply-notifications"] && validateEmail($("[name='email']", el).value)) {
-            $(".isso-notification-section", el).show();
+            $(".isso-notification-section", el).show("inline-block");
         } else {
             $(".isso-notification-section", el).hide();
         }

@@ -7,7 +7,7 @@ var html = function (globals) {
   var notify = conf["reply-notifications-default-enabled"] ? " checked" : '';
 
   var divDomStr = `
-<div class='isso-postbox'>
+  <div class='isso-postbox'>
   <div class='isso-form-wrapper'>
     <div class='isso-textarea-wrapper'>
       <div class='isso-textarea isso-placeholder' contenteditable='true'> ${i18n('postbox-text')} </div>
@@ -33,20 +33,22 @@ var html = function (globals) {
         <label for='isso-postbox-website'> ${i18n('postbox-website')} </label>
         <input id='isso-postbox-website' type='text' name='website' placeholder="${i18n('postbox-website-placeholder')}" value="${(website ? website : '')}" />
       </p>
-      <p class='isso-post-action'>
-        <input type='submit' value="${i18n('postbox-submit')}" />
-      </p>
-      <p class='isso-post-action'>
-        <input type='button' name='preview' value="${i18n('postbox-preview')}" />
-      </p>
-      <p class='isso-post-action'>
-        <input type='button' name='edit' value="${i18n('postbox-edit')}" />
-      </p>
-    </section>
-    <section class='isso-notification-section'>
-      <label>
-        <input type='checkbox' ${notify} name='notification' /> ${i18n('postbox-notification')}
-      </label>
+      <section class='isso-notification-section'>
+        <label>
+          <input type='checkbox' ${notify} name='notification' /> ${i18n('postbox-notification')}
+        </label>
+      </section>
+      <section class="isso-btn-section">
+        <p class='isso-post-action'>
+          <input type='submit' value="${i18n('postbox-submit')}" />
+        </p>
+        <p class='isso-post-action'>
+          <input type='button' name='preview' value="${i18n('postbox-preview')}" />
+        </p>
+        <p class='isso-post-action'>
+          <input type='button' name='edit' value="${i18n('postbox-edit')}" />
+        </p>
+      </section>
     </section>
     <div class='isso-comment-submit-err'>
     </div>

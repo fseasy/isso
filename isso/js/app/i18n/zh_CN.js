@@ -1,15 +1,18 @@
 module.exports= {
     "postbox-text": "可在此输入评论(Markdown 风格)",
-    "postbox-author": "名字 (可选)",
-    "postbox-email": "电子邮箱 (可选)",
-    "postbox-website": "网站 (可选)",
+    "postbox-author": "姓名",
+    "postbox-author-placeholder": "可选，用于评论名展示",
+    "postbox-email": "邮箱",
+    "postbox-website-placeholder": "可选，用于接收回复",
+    "postbox-website": "网站",
+    "postbox-email-placeholder": "可选",
     "postbox-preview": "预览",
     "postbox-edit": "编辑",
     "postbox-submit": "提交",
-    "postbox-notification": "有新回复时发送邮件通知",
+    "postbox-notification": "有新回复时邮件通知",
 
     "num-comments": "1 条评论\n{{ n }} 条评论",
-    "no-comments": "还没有评论",
+    "no-comments": "没有评论",
 
     "comment-reply": "回复",
     "comment-edit": "编辑",
