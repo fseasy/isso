@@ -40,13 +40,13 @@ var html = function (globals) {
       </section>
       <section class="isso-btn-section">
         <p class='isso-post-action'>
-          <input type='submit' value="${i18n('postbox-submit')}" />
-        </p>
-        <p class='isso-post-action'>
           <input type='button' name='preview' value="${i18n('postbox-preview')}" />
         </p>
         <p class='isso-post-action'>
           <input type='button' name='edit' value="${i18n('postbox-edit')}" />
+        </p>
+        <p class='isso-post-action'>
+          <input type='submit' value="${i18n('postbox-submit')}" />
         </p>
       </section>
     </section>
