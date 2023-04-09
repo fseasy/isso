@@ -30,47 +30,45 @@ Why： 方便对其中的一些问题做修改。但修改是个性化地，不�
    b. 修改 width 等设置，让label、input在各种宽度下都合理展示
    c. 修改 textarea 宽度，让预览和编辑切换时DOM高度变换不那么大
 
+4. 配置修改：
+
+   1. 增加 log-level 配置项，在 app 模式也增加 `logging.basicConfig`
+   2. dbpath, log-file 路径解析方式修改：如果是相对路径，就将其基于 config 的绝对路径所在目录作为基础目录
+      
+      注意，config 的绝对路径，可以通过环境变量 `ISSO_SETTINGS` 来设置。
 
 ## 调试/部署
 
 1. 安装 `npm`, `Python3` 及其对应版本的 `python3-dev` 包 （这块参考原文档的[install-from-source][ifs]）
-2. 在当前目录下，执行：
+2. 预处理：在当前目录下，执行：
 
    ```Makefile
    make init # npm依赖安装
    make js # webpack 打包js，写到 isso/js 下的 *(dev|min).js
    ````
 
-3. （调试）激活Python3环境，安装 `isso` Python server
-   
-    ```bash
-    pip install -e .
-    ```
-  
-4. (调试) 在 `isso/demo` 下，启动demo服务
-   
-   ```bash
-   sh run_server.sh # 浏览器会打出访问host
-   ```
-   
-   访问命令行输出的host, 具体地址为 `$HOST/demo` 即可看到demo页面。
-  
-5. (部署) 安装
+3. 部署：
 
-   如果前面已经 
-
-   ```Makefile
-   make init
-   make js
-   ```
-
-   了，那么部署环境下的安装，其实就是
+   如果是虚拟环境，需要先激活 Python3 环境，然后执行
 
    ```bash
    pip install .
    ```
 
-   即可了。
+3. 调试：
 
+   1. 激活Python3环境， 开发模式安装 `isso` Python server 
+   
+      ```bash
+      pip install -e .
+       ```
+
+    2. 在 `isso/demo` 下，启动demo服务
+   
+      ```bash
+      sh run_server.sh # 浏览器会打出访问host
+      ```
+   
+      访问命令行输出的host, 具体地址为 `$HOST/demo` 即可看到demo页面。
 
 [ifs]: https://posativ.org/isso/docs/install/#install-from-source

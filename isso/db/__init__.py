@@ -25,8 +25,7 @@ class SQLite3:
     MAX_VERSION = 3
 
     def __init__(self, path, conf):
-
-        self.path = os.path.expanduser(path)
+        self.path = path
         self.conf = conf
 
         rv = self.execute([

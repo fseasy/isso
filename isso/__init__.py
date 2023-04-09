@@ -164,6 +164,8 @@ class Isso(object):
 
 
 def make_app(conf=None, threading=True, multiprocessing=False, uwsgi=False):
+    # init logging
+    logging.basicConfig(format="%(asctime)s [%(levelname)s] %(name)s %(module)s: %(message)s")
 
     if not any((threading, multiprocessing, uwsgi)):
         raise RuntimeError("either set threading, multiprocessing or uwsgi")
@@ -180,8 +182,11 @@ def make_app(conf=None, threading=True, multiprocessing=False, uwsgi=False):
 
     isso = App(conf)
 
-    logger.info("Using database at '%s'",
-                abspath(isso.conf.get('general', 'dbpath')))
+    if log_level := conf.get('general', 'log-level'):
+        log_level = logging.getLevelName(log_level.upper())
+        # may raise Exception, but just let it raise...
+        logger.setLevel(log_level)
+    logger.info("Using database at '%s'", isso.conf.get('general', 'dbpath'))
 
     if not any(conf.getiter("general", "host")):
         logger.error("No website(s) configured, Isso won't work.")

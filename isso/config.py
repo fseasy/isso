@@ -4,6 +4,7 @@ import datetime
 import logging
 import pkg_resources
 import re
+import os
 
 from email.utils import parseaddr, formataddr
 from configparser import ConfigParser, NoOptionError, NoSectionError, DuplicateSectionError
@@ -170,5 +171,28 @@ def load(default, user=None):
     if not parseaddr(fromaddr)[0]:
         parser.set("smtp", "from",
                    formataddr(("Ich schrei sonst!", fromaddr)))
+    
+    # update path
+    _update_path2absolute(parser, user if user else default)
 
     return parser
+
+
+def _update_path2absolute(parser, conf_path):
+    def _make_abs_path(path, abs_dir):
+        p = os.path.expanduser(path)
+        if p.startswith("/"):
+            return p
+        # view path as relative path
+        p = os.path.normpath(os.path.join(abs_dir, path))
+        return p
+
+    conf_abs_dir = os.path.dirname(os.path.abspath(conf_path))
+
+    general_section_keys = ["dbpath", "log-file"]
+    for k in general_section_keys:
+        value = parser['general'][k]
+        if not value:
+            continue
+        abspath = _make_abs_path(value, conf_abs_dir)
+        parser['general'][k] = abspath
